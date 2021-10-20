@@ -49,12 +49,22 @@ def crop_objects(img, data, path, allowed_classes):
             # get box coords
             xmin, ymin, xmax, ymax = boxes[i]
             # crop detection from image (take an additional 5 pixels around all edges)
-            cropped_img = img[int(ymin)-5:int(ymax)+5, int(xmin)-5:int(xmax)+5]
+            # cropped_img = img[int(ymin)-5:int(ymax)+5, int(xmin)-5:int(xmax)+5] # detection시 bbox에 잘린 이미지
+            cropped_img = img # detection시 bbox에 잘린 이미지가 아닌 화면 전체 이미지
             # construct image name and join it to path for saving crop properly
             img_name = class_name + '_' + str(counts[class_name]) + '.png'
             img_path = os.path.join(path, img_name )
             # save image
             cv2.imwrite(img_path, cropped_img)
+            
+            # make label file
+            txt_name = class_name + '_' + str(counts[class_name]) + '.txt'
+            txt_path = os.path.join(path, txt_name)
+            
+            with open(txt_path, "w", encoding="utf8") as label:
+                label.write(class_name + ' ' + str(xmin) + ' ' + str(ymin) + ' ' + str(xmax) + ' ' + str(ymax))
+            
+            
         else:
             continue
         
