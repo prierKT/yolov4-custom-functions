@@ -1,6 +1,29 @@
 # yolov4-custom-functions
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
+
+---
+### 데이터셋을 만들기 위한 코드 추가
+* crop 사용 시, 이미지를 저장하는 코드 수정 및 class name 과 bbox 좌표를 저장하는 label 파일을 생성하는 코드 추가
+* 영상을 나누고 싶은 frame 단위로 나누어 이미지를 캡쳐하여 저장하는 코드 추가 (코드 편집 툴에서 코드 실행 - refine_data.py)
+* crop 후, frame으로 나뉘어 따로 저장되는 이미지들을 한 폴더로 모아서 정리하는 코드 추가
+```bash
+python relocate.py
+```
+* label 파일의 class name을 수정할 필요가 있을 때, 수정할 수 있는 코드 추가 (코드 편집 툴에서 코드 실행 - refine_data.py)
+* label 파일을 yolo 형식 또는 xml 형식으로 변환하는 코드 추가
+```bash
+# to yolo
+python convert_yolo.py
+# to xml
+python convert_xml.py
+```
+* 이미지와 label 데이터들을 랜덤으로 8:2 비율로 trainset과 testset으로 만들어주는 코드 추가
+```bash
+python make_train_test.py
+```
+
+
 A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tiny implemented in TensorFlow, TFLite and TensorRT.
 
 DISCLAIMER: This repository is very similar to my repository: [tensorflow-yolov4-tflite](https://github.com/theAIGuysCode/tensorflow-yolov4-tflite). I created this repository to explore coding custom functions to be implemented with YOLOv4, and they may worsen the overal speed of the application and make it not optimized in respect to time complexity. So if you want to run the most optimal YOLOv4 code with TensorFlow than head over to my other repository. This one is to explore cool customizations and applications that can be created using YOLOv4!
