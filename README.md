@@ -22,7 +22,7 @@ python convert_xml.py
 ```bash
 python make_train_test.py
 ```
-
+---
 
 A wide range of custom functions for YOLOv4, YOLOv4-tiny, YOLOv3, and YOLOv3-tiny implemented in TensorFlow, TFLite and TensorRT.
 
