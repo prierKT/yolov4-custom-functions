@@ -3,22 +3,35 @@
 
 
 ---
-### 데이터셋을 만들기 위한 코드 추가
-* crop 사용 시, 이미지를 저장하는 코드 수정 및 class name 과 bbox 좌표를 저장하는 label 파일을 생성하는 코드 추가
-* 영상을 나누고 싶은 frame 단위로 나누어 이미지를 캡쳐하여 저장하는 코드 추가 (코드 편집 툴에서 코드 실행 - refine_data.py)
-* crop 후, frame으로 나뉘어 따로 저장되는 이미지들을 한 폴더로 모아서 정리하는 코드 추가
+### 데이터셋을 만들기 위한 코드 수정 및 추가
+* crop 사용 시, 이미지를 저장하는 코드 수정 및 label 파일을 생성하는 코드 추가
+  - 기존 crop 기능은 detection 할 때 그려지는 bbox의 크기에 맞춰서 저장됨.
+  - 학습에 사용할 데이터를 만들기 위해서 detection되는 순간의 화면 전체 이미지를 저장하는 코드로 수정.
+  - 전체 이미지를 저장함과 동시에 detection되는 class name, bbox의 좌표가 저장된 label파일 생성 코드 추가
+* 영상을 나누고 싶은 frame 단위로 나누어 이미지를 캡쳐하여 저장하는 코드 추가
+  - 영상을 이미지로 만들고, 직접 labeling 작업을 하기 위해.
+  - `refine_data.py` 파일의 함수 `video_capture(video_path, frame_step, save_dir)` 활용.
+* crop 후, frame마다 따로 저장되는 이미지들을 한 폴더로 재배치하는 코드 추가
+  - crop된 데이터들은 `/detection/crop/video_name/frame1, 2, 3.../image, label` 순으로 저장됨.
+  - 흩어져 있는 데이터들을 `/detection/dataset/video_name` 경로를 생성하여 한 곳에 저장하는 코드 추가.
 ```bash
 python relocate.py
 ```
-* label 파일의 class name을 수정할 필요가 있을 때, 수정할 수 있는 코드 추가 (코드 편집 툴에서 코드 실행 - refine_data.py)
+* label 파일의 class name을 수정할 필요가 있을 때, 수정할 수 있는 코드 추가
+  - detection에 사용한 class name이 학습할 class name과 다를 때 수정하기 위해.
+  - `refine_data.py` 파일의 함수 `modify_class_name(class_name, label_dir_path)` 활용.
 * label 파일을 yolo 형식 또는 xml 형식으로 변환하는 코드 추가
+  - 학습시킬 class name이 저장된 `/detection/dataset/classes.txt' 파일 사전 생성 필요.
+  - *잘못되었을 때, 되돌리기가 불가능하니 사전에 백업 후 실행을 권유합니다.*
 ```bash
-# to yolo
+# to YOLO
 python convert_yolo.py
-# to xml
+# to xml (PASCAL VOC)
 python convert_xml.py
 ```
-* 이미지와 label 데이터들을 랜덤으로 8:2 비율로 trainset과 testset으로 만들어주는 코드 추가
+* trainset과 testset으로 만들어주는 코드 추가
+  - 'obj`, 'test` 폴더를 생성 - 이미지와 label 데이터들을 랜덤으로 추출하여 8:2 비율로 저장.
+  - *잘못되었을 때, 되돌리기가 불가능하니 사전에 백업 후 실행을 권유합니다.*
 ```bash
 python make_train_test.py
 ```
