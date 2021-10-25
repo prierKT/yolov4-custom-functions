@@ -7,7 +7,7 @@
 * crop 사용 시, 이미지를 저장하는 코드 수정 및 label 파일을 생성하는 코드 추가
   - 기존 crop 기능은 detection 할 때 그려지는 bbox의 크기에 맞춰서 저장됨.
   - 학습에 사용할 데이터를 만들기 위해서 detection되는 순간의 화면 전체 이미지를 저장하는 코드로 수정.
-  - 전체 이미지를 저장함과 동시에 detection되는 class name, bbox의 좌표가 저장된 label파일 생성 코드 추가
+  - 전체 이미지를 저장함과 동시에 class name, bbox의 좌표가 저장된 label파일 생성 코드 추가
 * 영상을 나누고 싶은 frame 단위로 나누어 이미지를 캡쳐하여 저장하는 코드 추가
   - 영상을 이미지로 만들고, 직접 labeling 작업을 하기 위해.
   - `refine_data.py` 파일의 함수 `video_capture(video_path, frame_step, save_dir)` 활용.
