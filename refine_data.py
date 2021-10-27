@@ -23,6 +23,7 @@ def modify_class_name(class_name, label_dir_path):
 
 
 def video_capture(video_path, frame_step, save_dir):
+  """주어진 frame step 마다 영상을 이미지로 캡쳐하는 함수"""
   vidcap = cv2.VideoCapture(video_path)
   total_frames = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
   print("Total Frames: ", total_frames)
